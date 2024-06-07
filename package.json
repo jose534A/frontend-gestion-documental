@@ -14,8 +14,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@tanstack/vue-query": "^5.40.0",
+    "axios": "^1.7.2",
     "flowbite": "^2.3.0",
-    "flowbite-vue": "^0.1.4",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
