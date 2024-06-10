@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import autenticacionRoutes from '../modules/autenticacion/routes'
 import dashboardRoutes from '../modules/dashboard/routes'
-import { useAutenticacionStore } from '@/stores/use-autenticacion.store'
+// import { useAutenticacionStore } from '@/stores/use-autenticacion.store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,12 +18,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const store = useAutenticacionStore()
-    const checkAuthStore = store.loginStatus
-    if (checkAuthStore) {
-      next({ name: 'login' })
+    if (localStorage.getItem('auth/isAuthenticated') !== 'true') {
+      next({name: 'Login'})
     } else {
-      console.log("Acceso denegado")
+      next()
     }
   } else {
     next()
