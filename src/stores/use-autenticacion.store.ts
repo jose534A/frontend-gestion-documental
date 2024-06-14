@@ -10,6 +10,8 @@ export const useAutenticacionStore = defineStore('autenticacion', () => {
     const messageError = ref('')
     const titleError = ref('')
 
+    const rutas = ref([])
+
     const onLogginSuccess = (
         success: boolean,
         nombreParam?: string,
@@ -17,15 +19,13 @@ export const useAutenticacionStore = defineStore('autenticacion', () => {
         message?: string
     ) => {
         if (success === true) {
-            console.log('Success')
             loginStatus.value = true
             nombre.value = nombreParam ? nombreParam : ''
             rolId.value = rolIdParam ? rolIdParam : -1
-            localStorage.setItem('auth/isAuthenticated', 'true')
-            localStorage.setItem('auth/nombre', nombre.value)
-            // console.log('loginStatus', loginStatus.value)
+            messageError.value = ''
+            titleError.value = ''
+            showModal.value = false
         } else {
-            console.log('Fail')
             showModal.value = true
             messageError.value = message ?? '-'
             titleError.value = 'Error'
@@ -43,6 +43,16 @@ export const useAutenticacionStore = defineStore('autenticacion', () => {
         showModal.value = false
     }
 
+    const onLogout = () => {
+        loginStatus.value = false
+        nombre.value = ''
+        rolId.value = -1
+    }
+
+    const updateRutas = (rutasParam: any) => {
+        rutas.value = rutasParam
+    }
+
     return {
         // state
         loginStatus,
@@ -52,8 +62,10 @@ export const useAutenticacionStore = defineStore('autenticacion', () => {
         messageError,
         titleError,
         // actions
-        onLogginSuccess, onLogginError, closeModal
+        onLogginSuccess, onLogginError, closeModal, onLogout, updateRutas
     }
+},{
+    persist: true
 })
 // export const useAutenticacionStore = defineStore('autenticacion',{
 //     state: () => ({

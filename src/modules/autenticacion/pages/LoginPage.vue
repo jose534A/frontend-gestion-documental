@@ -86,16 +86,18 @@ const password = ref<string>();
 
 const submit = async () => {
     try {
-        const { success, nombre, rolId, message } = await query.mutateAsync({ username: username.value, password: password.value })
+        const { success, nombre, rolId, message } = await query.mutateAsync(
+            { 
+                username: username.value, 
+                password: password.value 
+            }
+        )
         if(query.isSuccess && success) {
             store.onLogginSuccess(success, nombre, rolId, message)
             router.push({ name: 'dashboard', replace: true })
         }
-        if(query.isError){
-            store.onLogginError(message)
-        }
     } catch (error) {
-        console.error(error)
+        store.onLogginError(`${error}`)
     }
 }
 
