@@ -14,9 +14,6 @@
         </div>
     </div> -->
     <div>
-
-
-
         <div class="flex">
             <!-- Input de busqueda -->
             <div class="">
@@ -116,9 +113,13 @@
                                     {{ cell }}
                                 </div>
                             </th>
-                            <!-- <th><button @click="handleRowClick(+row.INTER_ID)" type="button"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</button>
-                            </th> -->
+                            <th>
+                                <button @click="emitRowId(row)" type="button"
+                                    :class="[
+                                        `text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 m-auto dark:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800`,
+                                        `${columns[columns.length - 1].isShowing ? 'block' : 'hidden'}`
+                                    ]">Editar</button>
+                            </th>
                         </tr>
                     </tbody>
                 </table>
@@ -177,9 +178,9 @@
 </template>
 
 <script setup lang="ts">
+
 import { computed, onMounted, ref, watchEffect } from 'vue'
 
-// import type { MatrizResponseInterface } from '../interfaces/matriz.interface'
 import { initDropdowns } from 'flowbite';
 
 const props = defineProps({
@@ -188,7 +189,6 @@ const props = defineProps({
         required: false
     }
 })
-console.log(props.data)
 
 const searchFilter = ref<string>('');
 
@@ -215,45 +215,22 @@ const search = (e: any) => {
 
 const columns = ref<{ head: string; isShowing: boolean }[]>([])
 
-// watch(props.data  , () => {
-//     if (props.data && props.data.length > 0 && props.data[0]) {
-//         columns.value = Object.keys(props.data[0] as Record<string, unknown>).map((col) => {
-//             return { head: col, isShowing: true }
-//         })
-//     }
-// })
 watchEffect(() => {
     if (props.data && props.data.length > 0 && props.data[0]) {
-        columns.value = Object.keys(props.data[0] as Record<string, unknown>).map((col) => {
+        columns.value = [...Object.keys(props.data[0] as Record<string, unknown>).map((col) => {
             return { head: col, isShowing: true }
-        })
+        }), { head: 'EDITAR', isShowing: true }]
     }
 })
 
 onMounted(() => {
     initDropdowns()
     if (props.data) {
-        columns.value = Object.keys(props.data[0] as Record<string, unknown>).map((col) => {
+        columns.value = [...Object.keys(props.data[0] as Record<string, unknown>).map((col) => {
             return { head: col, isShowing: true }
-        })
+        }), { head: 'EDITAR', isShowing: true }]
     }
 })
-
-
-
-
-// const rows = computed(() => {
-//     // console.log({ currentPage, totalPages })
-//     const rowsToShow = data.value ? data.value : []
-//     return rowsToShow.map((row, index) => {
-//         if (
-//             index >= (currentPage.value - 1) * rowsPerPage.value &&
-//             index < currentPage.value * rowsPerPage.value
-//         ) {
-//             return row
-//         }
-//     })
-// })
 
 const onChangeVisibilityColumn = (index: number) => {
     columns.value[index].isShowing = !columns.value[index].isShowing
@@ -286,7 +263,6 @@ const totalRows = computed(() => {
     return props.data ? props.data.length : 0
 })
 const showingNumberStartRowsCurrentPage = computed(() => {
-
     return props.data ? ((rowsPerPage.value * (currentPage.value - 1)) + 1) : 0
 })
 const showingNumberEndRowsCurrentPage = computed(() => {
@@ -296,15 +272,12 @@ const showingNumberEndRowsCurrentPage = computed(() => {
     return props.data ? (rowsPerPage.value * currentPage.value) : 0
 })
 
+const emit = defineEmits(['updateRow'])
 
-// let selectedIndex = ref<number | null>(null);
-
-// const handleRowClick = (index: number) => {
-//     selectedIndex.value = index;
-//     console.log('Índice seleccionado:', selectedIndex.value);
-// };
-
-
+const emitRowId = (id: any) => {
+    const emitId = Object.values(id)[0]
+    emit('updateRow', emitId)
+}
 </script>
 
 <style scoped></style>
