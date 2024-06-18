@@ -20,7 +20,15 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/convenios-cartas',
         name: 'convenios-cartas',
-        component: () => import('./pages/EmpresasPage.vue'),
+        component: () => import('./pages/ConveniosCartasPage.vue'),
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/tipo-practica',
+        name: 'tipo-practica',
+        component: () => import('./pages/TipoPracticaPage.vue'),
         meta: {
             requiresAuth: true,
         }

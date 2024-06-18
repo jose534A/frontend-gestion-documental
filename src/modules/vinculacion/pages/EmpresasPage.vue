@@ -5,7 +5,8 @@
                 <h2 class="text-2xl font-bold">Empresas</h2>
             </div>
             <div>
-                <button class="px-4 py-2 text-white bg-blue-500 rounded-lg h-10 hover:bg-blue-800 hover:cursor-pointer focus:ring-4 focus:ring-blue-300 focus:outline-none"
+                <button
+                    class="px-4 py-2 text-white bg-blue-500 rounded-lg h-10 hover:bg-blue-800 hover:cursor-pointer focus:ring-4 focus:ring-blue-300 focus:outline-none"
                     @click="openModalToCreate">Crear empresa</button>
             </div>
         </div>
@@ -13,13 +14,13 @@
             <CustomDataTable :data="query.data.value" @update-row="openModalToUpdate" />
         </div>
     </DashboardLayout>
-    <CreateUpdateEmpresa :open="openCreateUpdateModal" @close="closeModal" :item-update="itemUpdate" />
+    <CreateUpdateEmpresaModal :open="openCreateUpdateModal" @close="closeModal" :item-update="itemUpdate" />
 </template>
 
 <script setup lang="ts">
 import CustomDataTable from '@/components/CustomDataTable.vue';
 import DashboardLayout from '@/modules/dashboard/layouts/DashboardLayout.vue';
-import CreateUpdateEmpresa from '../components/CreateUpdateEmpresa.vue';
+import CreateUpdateEmpresaModal from '../components/CreateUpdateEmpresaModal.vue';
 
 import { useGetEmpresas } from '../composables/use-empresas';
 import { onMounted, ref, watch, watchEffect } from 'vue';
@@ -34,12 +35,10 @@ const itemUpdate = ref()
 
 onMounted(() => {
     dataEmpresas.value = query.data.value
-    console.log(query.data.value)
 })
 
 watchEffect(() => {
     dataEmpresas.value = query.data.value
-    console.log(query.data.value)
 })
 
 const openModalToCreate = () => {
@@ -48,7 +47,11 @@ const openModalToCreate = () => {
 }
 
 const openModalToUpdate = (id: number) => {
+    // const { data: dataToUpdate } = useGetEmpresaById(itemUpdate.value)
     itemUpdate.value = id
+    // dataPreload.value = dataToUpdate
+
+    // Petición 
 }
 
 const closeModal = () => {

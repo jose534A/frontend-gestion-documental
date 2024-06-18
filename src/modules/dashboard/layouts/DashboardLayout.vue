@@ -143,6 +143,7 @@ watchEffect(() => {
 })
 
 const navigation = (routeName?: string) => {
+    console.log(routeName);
     if(!routeName || routeName === '') return
     router.push({ name: routeName })
 }
