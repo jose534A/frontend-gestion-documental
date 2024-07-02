@@ -10,24 +10,24 @@ const routes: Array<RouteRecordRaw> = [
         }
     },
     {
-        path: '/empresas',
-        name: 'empresas',
+        path: '/empresas-vinculacon',
+        name: 'empresas-vinculacon',
         component: () => import('./pages/EmpresasPage.vue'),
         meta: {
             requiresAuth: true,
         }
     },
     {
-        path: '/convenios-cartas',
-        name: 'convenios-cartas',
+        path: '/convenios-cartas-vinculacion',
+        name: 'convenios-cartas-vinculacion',
         component: () => import('./pages/ConveniosCartasPage.vue'),
         meta: {
             requiresAuth: true,
         }
     },
     {
-        path: '/tipo-practica',
-        name: 'tipo-practica',
+        path: '/tipo-practica-vinculacion',
+        name: 'tipo-practica-vinculacion',
         component: () => import('./pages/TipoPracticaPage.vue'),
         meta: {
             requiresAuth: true,
