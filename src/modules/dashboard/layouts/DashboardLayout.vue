@@ -75,15 +75,14 @@
             <ul class="space-y-2 font-medium">
                 <!-- -->
                 <li v-for="(item, index) in rutas" :key="index">
-                    <a  @click="navigation(item.ruta)"
+                    <a @click="navigation(item.ruta)"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-gray-700 group">
                         <span class="ms-1">{{ item.nombre }}</span>
                     </a>
                     <div v-if="item.rutasHijas?.length && item.rutasHijas?.length > 0">
                         <ul>
                             <li v-for="(subItem, subIndex) in item.rutasHijas" :key="subIndex">
-                                <a
-                                    @click="navigation(subItem.ruta)"
+                                <a @click="navigation(subItem.ruta)"
                                     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-gray-700 group"><span
                                         class="ms-4 font-thin">{{ subItem.nombre }}</span></a>
                             </li>
@@ -109,7 +108,7 @@ import { initFlowbite } from 'flowbite';
 import { onMounted, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMenuRutas } from '../composable/use-menu-rutas';
-import { parseObjectRutas } from '../helpers/parse-object-rutas';
+import { parseObjectRutas, removeRoutesOnLogout } from '../helpers/parse-object-rutas';
 import type { RutaInterface } from '../dto/menu-rutas-response.dto';
 
 
@@ -122,28 +121,31 @@ const router = useRouter()
 
 const logout = () => {
     store.onLogout()
+    // agregar el desmontado de las rutas
+    removeRoutesOnLogout(router)
     router.push({ name: 'login', replace: true })
 }
 
 const autenticacionStorage = JSON.parse(localStorage.getItem('autenticacion') || '{}')
 
 const query = useMenuRutas(autenticacionStorage.rolId)
+// console.log(query?.data);
 
 const rutas = ref<RutaInterface[]>([])
 
 
 onMounted(() => {
-    rutas.value = parseObjectRutas(query?.data.value?.rutas ?? [])
+    rutas.value = parseObjectRutas(query?.data.value?.rutas ?? [], router)
     store.updateRutas(rutas.value)
 })
 
 watchEffect(() => {
-    rutas.value = parseObjectRutas(query?.data.value?.rutas ?? [])
+    rutas.value = parseObjectRutas(query?.data.value?.rutas ?? [], router)
     store.updateRutas(rutas.value)
 })
 
 const navigation = (routeName?: string) => {
-    if(!routeName || routeName === '') return
+    if (!routeName || routeName === '') return
     router.push({ name: routeName })
 }
 </script>

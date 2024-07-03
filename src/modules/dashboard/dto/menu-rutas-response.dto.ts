@@ -6,7 +6,9 @@ export interface MenuRutasResponseDto {
 export interface RutaInterface {
     id:     number;
     nombre: string;
+    path: string;
     ruta:   string;
+    component: string;
     padre:  number;
     rutasHijas?: RutaInterface[];
 }
