@@ -15,10 +15,10 @@
                             </path>
                         </svg>
                     </button>
-                    <a href="https://www.pucesi.edu.ec/webs2/" target="_blank" class="flex ms-2 md:me-24">
+                    <div @click="router.push({name: 'dashboard', replace: true})" class="flex ms-2 md:me-24">
                         <img src="https://res.cloudinary.com/dx7qfps6d/image/upload/v1689608536/dev-deploys/eqayqo984zyobeq6zzxf.png"
                             class="h-11 me-3" alt="Puce Ibarra Logo" />
-                    </a>
+                    </div>
                 </div>
                 <!-- Icon Profile -->
                 <div class="flex items-center">

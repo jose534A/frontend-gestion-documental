@@ -3,9 +3,9 @@ import type { RutaInterface } from '../dto/menu-rutas-response.dto'
 // import { defineAsyncComponent } from 'vue';
 
 export const parseObjectRutas = (rutas: RutaInterface[], router: Router) => {
+    const existingRoutes = router.getRoutes().map((route) => route.name)
     rutas.map((ruta) => {
-        if (!router.hasRoute(ruta.nombre)) {
-            console.log('route added', ruta.nombre)
+        if (!existingRoutes.includes(ruta.nombre)) {
             router.addRoute({
                 path: ruta.path,
                 name: ruta.ruta,
@@ -30,7 +30,6 @@ export const parseObjectRutas = (rutas: RutaInterface[], router: Router) => {
 }
 
 export const removeRoutesOnLogout = (router: Router) => {
-
     router.getRoutes().forEach((route) => {
         const arr = ['dashboard', 'login', 'not-found']
         const isDeletable = arr.includes(route.name as string)
