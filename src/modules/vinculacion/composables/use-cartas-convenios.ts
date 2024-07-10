@@ -8,7 +8,7 @@ export const useGetConveniosCartas = () => {
         const query = useQuery({
             queryKey: ['convenios-cartas'],
             queryFn: async () => {
-                const response = await useApi.get('vinculacion-convenios-cartas')
+                const response = await useApi.get('vinculacion/convenios-cartas')
                 return response.data
             }
         })
@@ -23,7 +23,7 @@ export const usePostConvenioCarta = () => {
         const mutation = useMutation(
             {
                 mutationFn: async (data: CartaConvenioDto) => {
-                    const response = await useApi.post('vinculacion-convenios-cartas', data)
+                    const response = await useApi.post('vinculacion/convenios-cartas', data)
                     return response.data
                 },
             },
@@ -39,7 +39,8 @@ export const usePutConvenioCarta = () => {
         const mutation = useMutation(
             {
                 mutationFn: async (data: CartaConvenioDto) => {
-                    const response = await useApi.put(`vinculacion-convenios-cartas/${data.VINE_ID}`, data)
+                    const {VINE_ID: id, ...obj} = data
+                    const response = await useApi.put(`vinculacion/convenios-cartas/${id}`, obj)
                     return response.data
                 },
             },
@@ -52,9 +53,8 @@ export const usePutConvenioCarta = () => {
 
 export const useGetConvenioCartaByIdNoQuery = async (id: number) => {
     try {
-        const response = await useApi.get(`vinculacion-convenios-cartas/${id}`)
+        const response = await useApi.get(`vinculacion/convenios-cartas/${id}`)
         return response.data
-        return
     } catch (error) {
         throw new Error(`${error}`)
     }

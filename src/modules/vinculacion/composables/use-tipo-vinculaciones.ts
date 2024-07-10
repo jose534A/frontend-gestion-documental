@@ -5,9 +5,9 @@ import type { TipoPracticaDto } from '../dto/tipo-practica.dto'
 export const useGetTipoPracticasVinculaciones = () => {
     try {
         const query = useQuery({
-            queryKey: ['tipo-practicas'],
+            queryKey: ['practica-tipos'],
             queryFn: async () => {
-                const response = await useApi.get('vinculacion-tipo-practica')
+                const response = await useApi.get('vinculacion/practica-tipos')
                 return response.data
             }
         })
@@ -22,7 +22,7 @@ export const usePostTipoPracticaVinculaciones = () => {
         const mutation = useMutation(
             {
                 mutationFn: async (data: TipoPracticaDto) => {
-                    const response = await useApi.post('vinculacion-tipo-practica', data)
+                    const response = await useApi.post('vinculacion/practica-tipos', data)
                     return response.data
                 },
             },
@@ -38,7 +38,8 @@ export const usePutTipoPracticaVinculacion = () => {
         const mutation = useMutation(
             {
                 mutationFn: async (data: TipoPracticaDto) => {
-                    const response = await useApi.put(`vinculacion-tipo-practica/${data.VINTP_ID}`, data)
+                    const { VINTP_ID: id, ...obj } = data
+                    const response = await useApi.put(`vinculacion/practica-tipos/${id}`, obj)
                     return response.data
                 },
             },
@@ -51,7 +52,7 @@ export const usePutTipoPracticaVinculacion = () => {
 
 export const useGetTipoPracticaVinculacionByIdNoQuery = async (id: number) => {
     try {
-        const response = await useApi.get(`vinculacion-tipo-practica/${id}`)
+        const response = await useApi.get(`vinculacion/practica-tipos/${id}`)
         return response.data
     } catch (error) {
         throw new Error(`${error}`)

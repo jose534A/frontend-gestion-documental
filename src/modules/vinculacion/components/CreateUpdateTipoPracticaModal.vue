@@ -84,7 +84,7 @@ const addEmpresa = async () => {
     await mutationCreate.mutateAsync(tipoPractica.value)
     if (mutationCreate.isSuccess) {
         emit('close')
-        queryClient.invalidateQueries({ queryKey: ['tipo-practicas'] })
+        queryClient.invalidateQueries({ queryKey: ['practica-tipos'] })
     } else {
         alert('Error al crear la empresa')
     }
@@ -96,7 +96,7 @@ const updateEmpresa = async () => {
     await mutationUpdate.mutateAsync(tipoPractica.value)
     if (mutationUpdate.isSuccess) {
         emit('close')
-        queryClient.invalidateQueries({ queryKey: ['tipo-practicas'] })
+        queryClient.invalidateQueries({ queryKey: ['practica-tipos'] })
     } else {
         alert('Error al crear la empresa')
     }

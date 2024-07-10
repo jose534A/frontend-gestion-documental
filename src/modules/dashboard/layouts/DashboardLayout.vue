@@ -15,7 +15,7 @@
                             </path>
                         </svg>
                     </button>
-                    <div @click="router.push({name: 'dashboard', replace: true})" class="flex ms-2 md:me-24">
+                    <div @click="router.push({ name: 'dashboard', replace: true })" class="flex ms-2 md:me-24">
                         <img src="https://res.cloudinary.com/dx7qfps6d/image/upload/v1689608536/dev-deploys/eqayqo984zyobeq6zzxf.png"
                             class="h-11 me-3" alt="Puce Ibarra Logo" />
                     </div>
@@ -110,6 +110,7 @@ import { useRouter } from 'vue-router';
 import { useMenuRutas } from '../composable/use-menu-rutas';
 import { parseObjectRutas, removeRoutesOnLogout } from '../helpers/parse-object-rutas';
 import type { RutaInterface } from '../dto/menu-rutas-response.dto';
+import { personalDb, estudiantesDb } from '@/indexed-db';
 
 
 onMounted(() => {
@@ -136,6 +137,8 @@ const rutas = ref<RutaInterface[]>([])
 
 onMounted(() => {
     rutas.value = parseObjectRutas(query?.data.value?.rutas ?? [], router)
+    personalDb.openDbPersonal()
+    estudiantesDb.openDbEstudiantes()
     store.updateRutas(rutas.value)
 })
 

@@ -7,7 +7,7 @@ export const usePostEmpresa = () => {
         const mutation = useMutation(
             {
                 mutationFn: async (data: EmpresaDto) => {
-                    const response = await useApi.post('vinculacion-empresas', data)
+                    const response = await useApi.post('vinculacion/empresas', data)
                     return response.data
                 },
                 
@@ -24,8 +24,8 @@ export const usePutEmpresa = () => {
         const mutation = useMutation(
             {
                 mutationFn: async (data: EmpresaDto) => {
-                    const {VINE_ID, ...obj} = data
-                    const response = await useApi.put(`vinculacion-empresas/${VINE_ID}`, obj)
+                    const {VINE_ID: id, ...obj} = data
+                    const response = await useApi.put(`vinculacion/empresas/${id}`, obj)
                     return response.data
                 },
             },
@@ -41,7 +41,7 @@ export const useGetEmpresas = () => {
         const query = useQuery({
             queryKey: ['empresas'],
             queryFn: async () => {
-                const response = await useApi.get('vinculacion-empresas')
+                const response = await useApi.get('vinculacion/empresas')
                 return response.data
             }
         })
@@ -57,7 +57,7 @@ export const useGetEmpresaById = (id: number) => {
         const query = useQuery({
             queryKey: ['empresa', id],
             queryFn: async () => {
-                const response = await useApi.get(`vinculacion-empresas/${id}`)
+                const response = await useApi.get(`vinculacion/empresas/${id}`)
                 return response.data
             }
         })
@@ -69,7 +69,7 @@ export const useGetEmpresaById = (id: number) => {
 
 export const useGetEmpresaByIdNoQuery = async (id: number) => {
     try {
-        const response = await useApi.get(`vinculacion-empresas/${id}`)
+        const response = await useApi.get(`vinculacion/empresas/${id}`)
         return response.data
     } catch (error) {
         throw new Error(`${error}`)

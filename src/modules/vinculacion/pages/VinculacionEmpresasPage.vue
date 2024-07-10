@@ -13,8 +13,8 @@
         <div>
             <CustomDataTable :data="query.data.value" @update-row="openModalToUpdate" />
         </div>
+        <CreateUpdateEmpresaModal :open="openCreateUpdateModal" @close="closeModal" :item-update="itemUpdate" />
     </DashboardLayout>
-    <CreateUpdateEmpresaModal :open="openCreateUpdateModal" @close="closeModal" :item-update="itemUpdate" />
 </template>
 
 <script setup lang="ts">
