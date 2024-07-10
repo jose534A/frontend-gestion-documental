@@ -192,22 +192,39 @@ const props = defineProps({
 
 const searchFilter = ref<string>('');
 
+// const filteredItems = computed(() => {
+//     const rowsToShow = props.data ? props.data : [];
+//     let items = rowsToShow;
+
+//     return items.filter((item: any, index) => {
+//         const withinRange = index >= (currentPage.value - 1) * rowsPerPage.value &&
+//             index < currentPage.value * rowsPerPage.value;
+
+//         const matchesSearch = Object.values(item).some((value: any) => {
+//             return value.toString().toLowerCase().includes(searchFilter.value.toLowerCase());
+//         });
+
+//         return matchesSearch && withinRange;
+//     });
+// });
+
 const filteredItems = computed(() => {
     const rowsToShow = props.data ? props.data : [];
-    let items = rowsToShow;
-
-    return items.filter((item: any, index) => {
-        const withinRange = index >= (currentPage.value - 1) * rowsPerPage.value &&
-            index < currentPage.value * rowsPerPage.value;
-
-        const matchesSearch = Object.values(item).some((value: any) => {
+    
+    // Filtrar la data completa primero
+    let items = rowsToShow.filter((item) => {
+        return Object.values(item).some((value) => {
             return value.toString().toLowerCase().includes(searchFilter.value.toLowerCase());
         });
+    });
 
-        return matchesSearch && withinRange;
+    // Luego aplicar la paginación
+    return items.filter((item, index) => {
+        const withinRange = index >= (currentPage.value - 1) * rowsPerPage.value &&
+            index < currentPage.value * rowsPerPage.value;
+        return withinRange;
     });
 });
-
 
 const search = (e: any) => {
     searchFilter.value = e.target.value;
