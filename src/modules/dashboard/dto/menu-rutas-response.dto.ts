@@ -11,5 +11,6 @@ export interface RutaInterface {
     component: string;
     padre:  number;
     indexeddb: number;
+    privilegio: number;
     rutasHijas?: RutaInterface[];
 }

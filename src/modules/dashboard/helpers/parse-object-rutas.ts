@@ -2,7 +2,7 @@ import { type Router } from 'vue-router'
 import type { RutaInterface } from '../dto/menu-rutas-response.dto'
 import { addEstudiante } from '../../../indexed-db/estudiantes-db';
 import { useApi } from '@/composables/use-api';
-import { personalDb, type GlobalEstudianteResponse, type GlobalPersonalResponse } from '@/indexed-db';
+import { personalDb, type GlobalEstudianteResponse, type GlobalPersonalResponse, estudiantesDb } from '@/indexed-db';
 
 
 export const parseObjectRutas = (rutas: RutaInterface[], router: Router) => {
@@ -55,15 +55,18 @@ const loadIndexedData = async (rutas: RutaInterface[]) => {
     const arrIndexed = [...setIndexed]
 
     if (arrIndexed.includes(3)) {
-        const responseEstudiante = await useApi.get<GlobalEstudianteResponse[]>('global_estudiantes')
-        responseEstudiante.data.map((estudiante) => {
-            addEstudiante(estudiante)
-        })
+        // const responseEstudiante = await useApi.get<GlobalEstudianteResponse[]>('global_estudiantes')
+        // responseEstudiante.data.map((estudiante) => {
+        //     estudiantesDb.addEstudiante(estudiante)
+        // })
 
-        const responsePersonal = await useApi.get<GlobalPersonalResponse[]>('global_personal')
-        responsePersonal.data.map((personal) => {
-            personalDb.addPersonal(personal)
-        })
+        useApi.get<GlobalEstudianteResponse[]>('global_estudiantes').then((estudiantes) => estudiantesDb.addAllEstudiantes(estudiantes.data) )
+
+        // const responsePersonal = await useApi.get<GlobalPersonalResponse[]>('global_personal')
+        // responsePersonal.data.map((personal) => {
+        //     personalDb.addPersonal(personal)
+        // })
+        useApi.get<GlobalPersonalResponse[]>('global_personal').then( (personals) => personalDb.addAllPersonal(personals.data))
 
         return;
 

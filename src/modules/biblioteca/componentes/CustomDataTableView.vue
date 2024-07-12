@@ -188,7 +188,7 @@ import { initDropdowns } from 'flowbite';
 const dominios = ref('');
 const celda = ref('');
 
-const openNewWindow = (dominios, celda) => {
+const openNewWindow = (dominios: any, celda: any) => {
     const url = `${dominios}${celda}`;
     window.open(url, '_blank');
 };
@@ -235,11 +235,11 @@ const searchFilter = ref<string>('');
 // });
 
 const filteredItems = computed(() => {
-    const rowsToShow = props.data ? props.data : [];
+    const rowsToShow: any[] = props.data ? props.data : [];
     
     // Filtrar la data completa primero
     let items = rowsToShow.filter((item) => {
-        return Object.values(item).some((value) => {
+        return Object.values(item).some((value: any) => {
             return value.toString().toLowerCase().includes(searchFilter.value.toLowerCase());
         });
     });

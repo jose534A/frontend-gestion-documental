@@ -41,7 +41,7 @@ export const useGetEmpresas = () => {
         const query = useQuery({
             queryKey: ['empresas'],
             queryFn: async () => {
-                const response = await useApi.get('vinculacion/empresas')
+                const response = await useApi.get<EmpresaDto[]>('vinculacion/empresas')
                 return response.data
             }
         })
@@ -57,7 +57,7 @@ export const useGetEmpresaById = (id: number) => {
         const query = useQuery({
             queryKey: ['empresa', id],
             queryFn: async () => {
-                const response = await useApi.get(`vinculacion/empresas/${id}`)
+                const response = await useApi.get<EmpresaDto>(`vinculacion/empresas/${id}`)
                 return response.data
             }
         })
@@ -69,7 +69,7 @@ export const useGetEmpresaById = (id: number) => {
 
 export const useGetEmpresaByIdNoQuery = async (id: number) => {
     try {
-        const response = await useApi.get(`vinculacion/empresas/${id}`)
+        const response = await useApi.get<EmpresaDto>(`vinculacion/empresas/${id}`)
         return response.data
     } catch (error) {
         throw new Error(`${error}`)

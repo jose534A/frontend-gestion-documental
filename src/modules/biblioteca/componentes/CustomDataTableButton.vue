@@ -146,8 +146,8 @@
                     <span class="font-semibold text-gray-900 dark:text-white">{{ totalRows }}</span>
 
                 </span>
-                <div class="flex flex-col">
-                    <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                <div class="flex flex-col py-5">
+                    <ul class="inline-flex flex-wrap -space-x-px rtl:space-x-reverse text-sm h-8">
                         <li>
                             <span
                                 class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -189,7 +189,7 @@ import ModalPendiente from '../componentes/CustomModalUpdatePendiente.vue';
 const dominios = ref('');
 const celda = ref('');
 
-const openNewWindow = (dominios, celda) => {
+const openNewWindow = (dominios: any, celda: any) => {
     const url = `${dominios}${celda}`;
     window.open(url, '_blank');
 };
@@ -208,7 +208,7 @@ const onChangeRowsPerPage = (rows: number) => {
 
 const props = defineProps({
     data: {
-        type: Array,
+        type: Array<any>,
         required: false
     },
     dominio: {
@@ -220,11 +220,11 @@ const props = defineProps({
 const searchFilter = ref<string>('');
 
 const filteredItems = computed(() => {
-    const rowsToShow = props.data ? props.data : [];
+    const rowsToShow: any[] = props.data ? props.data : [];
     
     // Filtrar la data completa primero
     let items = rowsToShow.filter((item) => {
-        return Object.values(item).some((value) => {
+        return Object.values(item).some((value: any) => {
             return value.toString().toLowerCase().includes(searchFilter.value.toLowerCase());
         });
     });
@@ -337,14 +337,18 @@ const totalPages = computed(() => {
 })
 const totalRows = computed(() => {
     return props.data ? props.data.filter((item) => {
-        return Object.values(item).some((value) => {
+        return Object.values(item).some((value: any) => {
             return value.toString().toLowerCase().includes(searchFilter.value.toLowerCase());
         });
     }).length : 0
 })
+
+
 const showingNumberStartRowsCurrentPage = computed(() => {
     return props.data ? ((rowsPerPage.value * (currentPage.value - 1)) + 1) : 0
 })
+
+
 const showingNumberEndRowsCurrentPage = computed(() => {
     const filteredCount = totalRows.value;
     if (rowsPerPage.value * currentPage.value > filteredCount) {
@@ -352,6 +356,8 @@ const showingNumberEndRowsCurrentPage = computed(() => {
     }
     return props.data ? (rowsPerPage.value * currentPage.value) : 0
 })
+
+
 </script>
 
 <style scoped></style>

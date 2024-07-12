@@ -109,8 +109,12 @@
                                     ` font-medium text-gray-900 whitespace-nowrap dark:text-white`,
                                     `${columns[cellIndex].isShowing ? 'px-6 py-4' : ''}`
                                 ]">
+
                                 <div v-show="columns[cellIndex].isShowing">
-                                    {{ cell }}
+                                    <div v-if="typeof cell === 'object'">
+                                        {{ Object.values(cell!)[0] }}
+                                    </div>
+                                    <div v-else>{{ cell }}</div>
                                 </div>
                             </th>
                             <th>
@@ -136,10 +140,10 @@
                     <span class="font-semibold text-gray-900 dark:text-white">{{ totalRows }}</span>
 
                 </span>
-                <div class="flex flex-col">
+                <div class="flex flex-col ">
 
 
-                    <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                    <ul class="inline-flex flex-wrap items-center py-5 -space-x-px rtl:space-x-reverse text-sm h-8">
                         <li>
                             <span
                                 class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -209,11 +213,27 @@ const searchFilter = ref<string>('');
 // });
 
 const filteredItems = computed(() => {
-    const rowsToShow = props.data ? props.data : [];
+    // const rowsToShow: any[] = props.data ? props.data : [];
+    
+    // // Filtrar la data completa primero
+    // let items = rowsToShow.filter((item) => {
+    //     return Object.values(item).some((value: any) => {
+    //         return value.toString().toLowerCase().includes(searchFilter.value.toLowerCase());
+    //     });
+    // });
+
+    // // Luego aplicar la paginación
+    // return items.filter((item, index) => {
+    //     const withinRange = index >= (currentPage.value - 1) * rowsPerPage.value &&
+    //         index < currentPage.value * rowsPerPage.value;
+    //     return withinRange;
+    // });
+    
+    const rowsToShow: any[] = props.data ? props.data : [];
     
     // Filtrar la data completa primero
     let items = rowsToShow.filter((item) => {
-        return Object.values(item).some((value) => {
+        return Object.values(item).some((value: any) => {
             return value.toString().toLowerCase().includes(searchFilter.value.toLowerCase());
         });
     });

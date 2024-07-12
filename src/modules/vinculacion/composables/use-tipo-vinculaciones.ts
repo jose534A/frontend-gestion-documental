@@ -7,7 +7,7 @@ export const useGetTipoPracticasVinculaciones = () => {
         const query = useQuery({
             queryKey: ['practica-tipos'],
             queryFn: async () => {
-                const response = await useApi.get('vinculacion/practica-tipos')
+                const response = await useApi.get<TipoPracticaDto[]>('vinculacion/practica-tipos')
                 return response.data
             }
         })
@@ -38,7 +38,7 @@ export const usePutTipoPracticaVinculacion = () => {
         const mutation = useMutation(
             {
                 mutationFn: async (data: TipoPracticaDto) => {
-                    const { VINTP_ID: id, ...obj } = data
+                    const { VINPT_ID: id, ...obj } = data
                     const response = await useApi.put(`vinculacion/practica-tipos/${id}`, obj)
                     return response.data
                 },

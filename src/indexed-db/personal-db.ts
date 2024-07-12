@@ -26,6 +26,44 @@ export const openDbPersonal = (): Promise<IDBDatabase> => {
     })
 }
 
+export const closeDbPersonal = (): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.deleteDatabase(DB_NAME);
+
+        request.onsuccess = () => {
+            resolve();
+        };
+
+        request.onerror = (event) => {
+            reject(new Error(`Error closing IndexedDB Personal:::${event}`));
+        };
+    });
+};
+
+
+export const addAllPersonal = async (people: GlobalPersonalResponse[]) => {
+    const db = await openDbPersonal()
+    return new Promise<void>((resolve, reject) => {
+        const transaction = db.transaction(STORE_NAME, 'readwrite')
+        const store = transaction.objectStore(STORE_NAME)
+
+        people.forEach((person: GlobalPersonalResponse) => {
+            person.id = person.LDOC_CEDULA
+            store.put(person)
+        })
+
+        transaction.oncomplete = () => {
+            console.log('All personal added')
+            resolve()
+        }
+
+        transaction.onerror = () => {
+            reject(new Error('Transaction error while adding estudiantes'))
+        }
+    })
+}
+
+
 export const addPersonal = async (person: GlobalPersonalResponse) => {
     const db = await openDbPersonal()
     return new Promise<void>((resolve, reject) => {

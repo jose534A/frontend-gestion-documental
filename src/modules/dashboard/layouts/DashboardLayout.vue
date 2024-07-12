@@ -124,6 +124,8 @@ const logout = () => {
     store.onLogout()
     // agregar el desmontado de las rutas
     removeRoutesOnLogout(router)
+    estudiantesDb.closeDbEstudiantes()
+    personalDb.closeDbPersonal()
     router.push({ name: 'login', replace: true })
 }
 

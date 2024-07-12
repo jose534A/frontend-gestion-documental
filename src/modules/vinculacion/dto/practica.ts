@@ -50,4 +50,6 @@ export interface PracticasCreateRequestDto {
     VINP_ID?:              number;
 }
 
+
+
 export interface PracticasUpdateRequestDto extends Partial<PracticasCreateRequestDto> {}
