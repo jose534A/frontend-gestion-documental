@@ -3,7 +3,7 @@
         class="fixed top-0 left-0 sm:ml-32 flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50"
         @click="closeModal">
 
-        <div class="bg-white rounded shadow-lg max-w-[400px] min-w-[350px] max-h-[500px] overflow-auto" @click.stop>
+        <div class="bg-white rounded shadow-lg max-w-[400px] max-h-[600px] overflow-auto" @click.stop>
             <div class="px-4 py-2 flex justify-between items-center">
                 <h2 class="text-xl">Crear nueva practica</h2>
                 <button @click="closeModal"
@@ -13,9 +13,11 @@
                 <form @submit.prevent="onSubmit">
 
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="cedulaEstudiante">Estudiante Cedula:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="cedulaEstudiante">Estudiante Cedula:</label>
                         <input v-model="practica.EST_CEDULA" id="cedulaEstudiante" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
                         <div class="absolute max-h-[300px] overflow-auto">
                             <ul v-if="hiddenOptionsEstudiante" class="relative z-50 bg-white border rounded-xl">
                                 <li v-for="estudiante in optionsEstudiante" :key="estudiante.id"
@@ -30,8 +32,11 @@
 
 
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="cedulaDocente">Docente Cedula:</label>
-                        <input v-model="practica.DOC_CEDULA" id="cedulaDocente" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="cedulaDocente">Docente Cedula:</label>
+                        <input v-model="practica.DOC_CEDULA" id="cedulaDocente" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
                         <div class="absolute max-h-[300px] overflow-auto">
                             <ul class="relative z-60 bg-white border rounded-xl">
                                 <li v-for="personal in optionsPersonal" :key="personal.id"
@@ -48,7 +53,8 @@
 
 
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionPracticaTipo">Vinculacion Practica Tipo:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionPracticaTipo">Vinculacion Practica Tipo:</label>
                         <select v-model="practica.VINPT_ID"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Seleccione una opcion...</option>
@@ -60,7 +66,8 @@
 
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionEspecificacion">Vinculacion Especificacion:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionEspecificacion">Vinculacion Especificacion:</label>
                         <select v-model="practica.VINESP_ID"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Seleccione una opcion...</option>
@@ -72,7 +79,8 @@
 
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionEmpresa">Vinculacion Empresa:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionEmpresa">Vinculacion Empresa:</label>
                         <select v-model="practica.VINE_ID"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Seleccione una opcion...</option>
@@ -84,50 +92,130 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionFechaInicio">Vinculacion Fecha Inicio:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionFechaInicio">Vinculacion Fecha Inicio:</label>
                         <input v-model="practica.VINP_FECHA_INICIO" id="vinculacionFechaInicio" type="date"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionFechaFin">Vinculacion Fecha Fin:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionFechaFin">Vinculacion Fecha Fin:</label>
                         <input v-model="practica.VINP_FECHA_FIN" id="vinculacionFechaFin" type="date"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionHorasPracticas">Vinculacion Horas Practicas:</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionHorasPracticas">Vinculacion Horas Practicas:</label>
                         <input v-model="practica.VINP_HORAS_PRACTICAS" id="vinculacionHorasPracticas" type="number"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionCampoEspecifico">Vinculacion Campo especifico de
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionCampoAmplio">Vinculacion Campo amplio de
                             practica:</label>
-                        <input v-model="practica.VINP_CAMPO_ESP" id="vinculacionCampoEspecifico" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <!-- <input v-model="practica.VINP_CAMPO_AMP" id="vinculacionCampoAmplio" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required> -->
+                        <select v-model="practica.VINP_CAMPO_AMP"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Seleccione una opcion...</option>
+                            <option v-for="item in queryCamposAmplios.data.value" :key="item.VCCA_CODIGO"
+                                :value="item.VCCA_ID">
+                                <span class="font-bold text-sm">{{ item.VCCA_CODIGO }}: </span>
+                                <span class="">{{ item.VCCA_DESCRIPCION }}</span>
+                            </option>
+                        </select>
                     </div>
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionCampoDetallado">Vinculacion Campo detallado de
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionCampoEspecifico">Vinculacion Campo especifico de
                             practica:</label>
-                        <input v-model="practica.VINP_CAMPO_DET" id="vinculacionCampoDetallado" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <!-- <input v-model="practica.VINP_CAMPO_ESP" id="vinculacionCampoEspecifico" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required> -->
+                            <!-- camposEspecificosByCampoAmplio -->
+                            <select v-model="practica.VINP_CAMPO_ESP"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Seleccione una opcion...</option>
+                            <option v-for="item in camposEspecificosByCampoAmplio" :key="item.VCCE_CODIGO"
+                                :value="item.VCCE_ID">
+                                <span class="font-bold text-sm">{{ item.VCCE_CODIGO }}: </span>
+                                <span class="">{{ item.VCCE_DESCRIPCION }}</span>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionCampoDetallado">Vinculacion Campo detallado de
+                            practica:</label>
+                        <!-- <input v-model="practica.VINP_CAMPO_DET" id="vinculacionCampoDetallado" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required> -->
+
+                            <select v-model="practica.VINP_CAMPO_DET"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Seleccione una opcion...</option>
+                            <option v-for="item in camposDetalladosByCampoEspecifico" :key="item.VCCD_CODIGO"
+                                :value="item.VCCD_ID">
+                                <span class="font-bold text-sm">{{ item.VCCD_CODIGO }}: </span>
+                                <span class="">{{ item.VCCD_DESCRIPCION }}</span>
+                            </option>
+                        </select>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="vinculacionPracticaEvidencia">Link Evidencia:</label>
-                        <input v-model="practica.VINP_LINK_EVIDENCIA" id="vinculacionPracticaEvidencia" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="vinculacionPracticaEvidencia">Link Evidencia:</label>
+                        <!-- <input id="vinculacionPracticaEvidencia" type="file"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            required> -->
+                    </div>
+
+                    <div class="flex items-center justify-center w-full mb-4">
+                        <label for="dropzone-file"
+                            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 ">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                        class="font-semibold">Click para subir archivo</span> o arrastre y suelte</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Se aceptan unicamente archivos .pdf
+                                </p>
+                            </div>
+                            <input id="dropzone-file" type="file" class="hidden" />
+                        </label>
                     </div>
 
 
 
+
                     <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="sedeId">Sede:</label>
-                        <input v-model="practica.SEDE_ID" id="sedeId" type="text"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="sedeId">Sede:</label>
+                        <!-- <input v-model="practica.SEDE_ID" id="sedeId" type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required> -->
+                            <select v-model="practica.SEDE_ID"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Seleccione una opcion...</option>
+                            <option v-for="item in queryIntersedes.data.value" :key="item"
+                                :value="item.SEDE_ID">
+                                <span class="font-bold text-sm">{{ item.SEDE_NOMBRE }}</span>
+                            </option>
+                        </select>
                     </div>
 
                     <!-- Agregar slider para actualizar el estado -->
                     <div class="mb-4" v-if="props.itemUpdate">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="stateCorp">Estado</label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="stateCorp">Estado</label>
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="checkbox" v-model="practica.VINP_ESTADO" class="sr-only peer"
                                 :checked="practica.VINP_ESTADO === 1">
@@ -158,10 +246,15 @@ import { useGetPracticaByIdNoQuery, usePostPractica, usePutPractica } from '../c
 import { useGetTipoPracticasVinculaciones } from '../composables/use-tipo-vinculaciones';
 import { useGetVinculacionEspecificaciones } from '../composables/use-especificaciones';
 import { useGetEmpresas } from '../composables/use-empresas';
+import { useGetCamposAmplios, useGetCamposDetalladosByIdCampoEspecificoNoQuery, useGetCamposEspecificosByIdCampoAmplioNoQuery } from '../composables/use-campos';
+import type { CampoDetalladoResponseDto, CampoEspecificoResponseDto } from '../dto/campos.dto';
+import { useGetIntersedes } from '@/modules/internacionalizacion/composables/use-intersedes';
 
 const queryPracticaTipo = useGetTipoPracticasVinculaciones()
 const queryEspecificaciones = useGetVinculacionEspecificaciones();
 const queryEmpresas = useGetEmpresas()
+const queryCamposAmplios = useGetCamposAmplios()
+const queryIntersedes = useGetIntersedes()
 
 const queryClient = useQueryClient()
 
@@ -173,8 +266,9 @@ const practicaEmpty = {
     VINP_FECHA_INICIO: '',
     VINP_FECHA_FIN: '',
     VINP_HORAS_PRACTICAS: '',
-    VINP_CAMPO_ESP: '',
-    VINP_CAMPO_DET: '',
+    VINP_CAMPO_AMP: 0,
+    VINP_CAMPO_ESP: 0,
+    VINP_CAMPO_DET: 0,
     DOC_CEDULA: '',
     VINP_LINK_EVIDENCIA: '',
     SEDE_ID: 0,
@@ -306,6 +400,19 @@ const selectedPersonal = (selectedPers: GlobalPersonalResponse) => {
     hiddenOptionsPersonal.value = false
 }
 // ==================================================================================
+const camposEspecificosByCampoAmplio = ref<CampoEspecificoResponseDto[]>([])
+watch(() => practica.value.VINP_CAMPO_AMP, async (val) => {
+    if (val !== 0) {
+        camposEspecificosByCampoAmplio.value = await useGetCamposEspecificosByIdCampoAmplioNoQuery(practica.value.VINP_CAMPO_AMP)
+    }
+})
+// ===========================
+const camposDetalladosByCampoEspecifico = ref<CampoDetalladoResponseDto[]>([])
+watch(() => practica.value.VINP_CAMPO_ESP, async (val) => {
+    if(val != 0){
+        camposDetalladosByCampoEspecifico.value = await useGetCamposDetalladosByIdCampoEspecificoNoQuery(practica.value.VINP_CAMPO_ESP)
+    }
+})
 
 </script>
 

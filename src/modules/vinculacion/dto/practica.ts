@@ -4,8 +4,9 @@ export interface PracticasResponseDto {
     VINP_FECHA_INICIO:    Date;
     VINP_FECHA_FIN:       Date;
     VINP_HORAS_PRACTICAS: string;
-    VINP_CAMPO_ESP:       string;
-    VINP_CAMPO_DET:       string;
+    VINP_CAMPO_AMP:       number;
+    VINP_CAMPO_ESP:       number;
+    VINP_CAMPO_DET:       number;
     DOC_CEDULA:           string;
     VINP_LINK_EVIDENCIA:  string;
     VINP_ESTADO:          number;
@@ -40,8 +41,9 @@ export interface PracticasCreateRequestDto {
     VINP_FECHA_INICIO:    string;
     VINP_FECHA_FIN:       string;
     VINP_HORAS_PRACTICAS: string;
-    VINP_CAMPO_ESP:       string;
-    VINP_CAMPO_DET:       string;
+    VINP_CAMPO_AMP:       number;
+    VINP_CAMPO_ESP:       number;
+    VINP_CAMPO_DET:       number;
     DOC_CEDULA:           string;
     VINP_LINK_EVIDENCIA:  string;
     SEDE_ID:              number;
