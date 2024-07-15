@@ -8,7 +8,7 @@ export const useGetIntersedes = () => {
         const query = useQuery({
             queryKey: ['intersede'],
             queryFn: async () => {
-                const response = await useApi.get<IntersedesResponseDto>('intersede')
+                const response = await useApi.get<IntersedesResponseDto[]>('intersede')
                 return response.data
             }
         })

@@ -16,7 +16,7 @@ export const parseObjectRutas = (rutas: RutaInterface[], router: Router) => {
                 component: () => import(/* @vite-ignore */ `../../../${ruta.component}`),
                 meta: {
                     requiresAuth: true,
-                    transition: 'fade'
+                    transition: 'fade',
                 },
 
             })
