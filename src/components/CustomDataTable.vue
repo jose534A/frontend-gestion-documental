@@ -154,7 +154,7 @@
                                 class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 hover:cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                 @click="onBeforeCurrentPage">Anterior</span>
                         </li>
-                        <li v-for="item in totalPages" :key="item">
+                        <li v-for="item in getPaginationArray(totalPages)" :key="item">
                             <span :class="[
                                 `flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 hover:cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`,
                                 `${currentPage == item ? 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-white' : 'bg-white'}`
@@ -308,6 +308,23 @@ const showingNumberEndRowsCurrentPage = computed(() => {
     }
     return props.data ? (rowsPerPage.value * currentPage.value) : 0
 })
+
+const getPaginationArray = (arrProp: number) => {
+    const arr = Array.from({length: arrProp}, (_, i) => i+ 1)
+    const maxLength = 7; // Maximum length of the output array
+    const selectedIndex = arr.indexOf(currentPage.value);
+
+    if (selectedIndex === -1) {
+        // If the selected number is not found in the array, return an empty array
+        return [];
+    }
+
+    const startIndex = Math.max(0, selectedIndex - Math.floor((maxLength - 1) / 2));
+    const endIndex = Math.min(arr.length, startIndex + maxLength);
+
+    return arr.slice(startIndex, endIndex)
+}
+
 
 const emit = defineEmits(['updateRow'])
 
