@@ -1,14 +1,15 @@
 import { useApi } from "@/composables/use-api"
 import { useQuery } from "@tanstack/vue-query"
-import type { IntersedesResponseDto } from "../dto/intersedes.dto"
+import type { InterAreaConocimientoDto } from "../dto/interareaconocimiento.dto"
 
 
-export const useGetIntersedesQuery = () => {
+
+export const useGetInterAreasConocimiento = () => {
     try {
         const query = useQuery({
-            queryKey: ['intersede'],
+            queryKey: ['interareaconocimiento'],
             queryFn: async () => {
-                const response = await useApi.get<IntersedesResponseDto[]>('intersede')
+                const response = await useApi.get<InterAreaConocimientoDto[]>('interareaconocimiento')
                 return response.data
             }
         })

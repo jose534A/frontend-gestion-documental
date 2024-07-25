@@ -2,13 +2,15 @@
     <div v-if="open"
         class="fixed top-0 left-0 sm:ml-32 flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50"
         @click="closeModal">
-
+        <!-- Main content -->
         <div class="bg-white rounded shadow-lg max-w-[400px] min-w-[350px] max-h-[500px] overflow-auto" @click.stop>
+            <!-- Modal header -->
             <div class="px-4 py-2 flex justify-between items-center">
                 <h2 class="text-xl">Crear nueva empresa</h2>
                 <button @click="closeModal"
                     class="bg-red-400 rounded-xl px-3 py-2 text-xs text-slate-100">Cerrar</button>
             </div>
+            <!-- Modal body -->
             <div class="p-4">
                 <form @submit.prevent="onSubmit">
                     <div class="mb-4">

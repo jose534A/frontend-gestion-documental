@@ -221,7 +221,7 @@
 import { ref, watch } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 import { estudiantesDb, personalDb, type GlobalEstudianteResponse, type GlobalPersonalResponse } from '@/indexed-db';
-import { useGetIntersedes } from '@/modules/internacionalizacion/composables/use-intersedes';
+import { useGetIntersedesQuery } from '@/modules/internacionalizacion/composables/use-intersedes';
 
 import type { PracticasCreateRequestDto } from '../dto/practica';
 import type { CampoDetalladoResponseDto, CampoEspecificoResponseDto } from '../dto/campos.dto';
@@ -237,7 +237,7 @@ const queryPracticaTipo = useGetTipoPracticasVinculaciones()
 const queryEspecificaciones = useGetVinculacionEspecificaciones();
 const queryEmpresas = useGetEmpresas()
 const queryCamposAmplios = useGetCamposAmplios()
-const queryIntersedes = useGetIntersedes()
+const queryIntersedes = useGetIntersedesQuery()
 
 const queryClient = useQueryClient()
 

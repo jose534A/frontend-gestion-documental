@@ -1,0 +1,32 @@
+export interface InternacionalizacionDto {
+    INTER_ID?: number
+    SEDE_NOMBRE: string
+    ICAR_CODIGO: string
+    INTER_CONV_CODIGO: string
+    INTER_CONV_NOMBRE: string
+    INTER_CONTRAPARTE: string
+    PAI_PAIS: string
+    PTIP_TIPO: string
+    INTER_PAPELLIDO: string
+    INTER_PNOMBRE: string
+    INTER_ACTIVIDADES: string
+    INTER_FINICIO?: Date
+    INTER_FFIN?: Date
+    ARE_CODIGO: string
+    FIN_TIPO: string
+    INTER_ADOCENCIA?: string
+    INTER_AINVESTIGACION?: string
+    INTER_AVINCULACION?: string
+    INTER_AADMINISTRATIVO?: string
+    INTER_AINTERNACIONALIZACION?: string
+    INTER_INDICADOR_1?: string
+    INTER_INDICADOR_2?: string
+    INTER_INDICADOR_3?: string
+    INTER_INDICADOR_4?: string
+    INTER_INDICADOR_5?: string
+    INTER_INDICADOR_6?: string
+    INTER_INDICADOR_7?: string
+    INTER_INDICADOR_8?: string
+    INTER_INDICADOR_9?: string
+    INTER_EVIDENCIA?: string
+}

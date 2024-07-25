@@ -1,14 +1,14 @@
 import { useApi } from "@/composables/use-api"
 import { useQuery } from "@tanstack/vue-query"
-import type { IntersedesResponseDto } from "../dto/intersedes.dto"
+import type { InterTipoParticipanteDto } from "../dto/intertipoparticipante.dto"
 
 
-export const useGetIntersedesQuery = () => {
+export const useGetInterTipoParticipanteQuery = () => {
     try {
         const query = useQuery({
-            queryKey: ['intersede'],
+            queryKey: ['intertipoparticipante'],
             queryFn: async () => {
-                const response = await useApi.get<IntersedesResponseDto[]>('intersede')
+                const response = await useApi.get<InterTipoParticipanteDto[]>('intertipoparticipante')
                 return response.data
             }
         })

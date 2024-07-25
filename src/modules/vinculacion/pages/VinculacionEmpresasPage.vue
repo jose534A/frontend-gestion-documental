@@ -24,10 +24,11 @@ import CreateUpdateEmpresaModal from '../components/CreateUpdateEmpresaModal.vue
 
 import { useGetEmpresas } from '../composables/use-empresas';
 import { onMounted, ref, watch, watchEffect } from 'vue';
+import type { EmpresaDto } from '../dto/empresa.dto';
 
 const query = useGetEmpresas()
 
-const dataEmpresas = ref([])
+const dataEmpresas = ref<EmpresaDto[]>()
 
 const openCreateUpdateModal = ref(false)
 
