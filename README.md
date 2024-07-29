@@ -16,7 +16,7 @@ Puedes visitar [Vite Configuration Reference](https://vitejs.dev/config/).
 yarn
 ```
 
-### Para habilitar el modo de desarrollo y cambios en caliente
+### Para habilitar el modo de desarrollo y cambios en desarrollo
 
 ```sh
 yarn dev
@@ -65,22 +65,21 @@ frontend-gestion-documental/
 │   │   ├── ui/
 │   │   └── ...
 │   ├── composables/
+│   ├── indexed-db/
 │   ├── modules/
+│   │   ├── actas/
 │   │   ├── autenticacion/
-│   │   │   ├── components/
-│   │   │   ├── views/
-│   │   │   ├── store/
-│   │   │   ├── routes.ts
-│   │   │   └── index.ts
-│   │   └── vinculaciones/
+│   │   ├── biblioteca/
+│   │   ├── dashboard/
+│   │   ├── internacionalizacion/
+│   │   ├── practicas/
+│   │   ├── titulacion/
+│   │   └── vinculacion/
 │   ├── router/
 │   │   ├── index.ts
 │   ├── stores/
-│   │       └── use-counter.store.ts
-│   ├── views/
-│   │   ├── Home.vue
-│   │   ├── About.vue
-│   │   └── ...
+│   │       └── use-counter.store.ts (Demostracion piña)
+│   │       └── use-autenticacion.store.ts
 │   ├── App.vue
 │   ├── main.ts
 ├── .env
@@ -104,6 +103,8 @@ frontend-gestion-documental/
 
 - **composables/:** Almacena funciones reutilizables creadas con la Composition API. Por ejemplo, hooks personalizados como useFetch.
 
+- **indexed-db/:** Contiene configuraciones y composables del funcionamiento de indexed-db en el navegador.
+- 
 - **modules/:** Cada módulo representa una funcionalidad principal del sistema. Cada módulo puede tener sus propios componentes, vistas, estado y rutas. Esto facilita la escalabilidad al mantener cada parte del sistema encapsulada y modular.
 
 - **router/:** Contiene la configuración de enrutamiento. index.ts es la configuración principal, y routes.ts define las rutas.
