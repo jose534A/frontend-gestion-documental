@@ -70,37 +70,22 @@
               <span :class="item.Activa ? 'inline-block w-4 h-4 bg-green-500 rounded-full' : 'inline-block w-4 h-4 bg-gray-500 rounded-full'"></span>
             </td>
             <td v-if="columns[4].isShowing" class="px-6 py-4 text-center">
-              <button
-                @click="handleViewAction(item.no)"
-                type="button"
-                class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800"
-              >
-                Ver
-              </button>
-             
-            </td>
+  <button
+    @click="handleViewAction(item.no)"
+    type="button"
+    class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800"
+  >
+    Ver
+  </button>
+</td>
+
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Botones de acción en la parte inferior -->
-     <div v-if="showButtons" class="btn-view">
-      <button
-        @click="emitAction('view')"
-        type="button"
-        class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800"
-      >
-        Ver
-      </button>
-      <button
-        @click="emitAction('edit')"
-        type="button"
-        class="text-white bg-yellow-500 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-yellow-600 dark:hover:bg-yellow-500 focus:outline-none dark:focus:ring-yellow-800"
-      >
-        Editar
-      </button>
-    </div>
+   
+    
   </div> 
   
 </template>
@@ -150,6 +135,7 @@ const filteredData = computed(() => {
 const handleViewAction = (id: number) => {
   selectedItem.value = id;
   showButtons.value = true;
+  emitAction('view'); // Emite la acción 'view' para mostrar la segunda tabla o realizar cualquier otra acción necesaria
 };
 
 const handleEditAction = (id: number) => {
@@ -166,3 +152,5 @@ const emitAction = (action: string) => {
   }
 };
 </script>
+
+
