@@ -1,45 +1,17 @@
 <template>
   <div>
     <div class="flex">
-      <!-- Dropdown button Columnas -->
-      <div class="relative inline-block text-left">
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" data-dropdown-delay="200"
-          class="bg-white-700 shadow-lg hover:bg-white-800 focus:ring-4 focus:outline-none focus:ring-white-300 font-medium rounded-lg text-sm mx-4 my-2 px-5 py-2.5 text-center inline-flex items-center dark:bg-white-600 dark:hover:bg-white-700 dark:focus:ring-white-800"
-          type="button">
-          Columnas
-          <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 10 6">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m1 1 4 4 4-4" />
-          </svg>
-        </button>
-        <!-- Dropdown menu -->
-        <div id="dropdown"
-          class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 max-h-[400px] min-w-[400px] overflow-auto">
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-            <li v-for="(column, index) in columns" :key="index"
-              class="flex justify-between hover:bg-gray-100 hover:cursor-pointer dark:hover:bg-gray-600 dark:hover:text-white"
-              @click="toggleColumnVisibility(index)">
-              <span class="block px-4 py-2">{{ column.head }}</span>
-              <span :class="[
-                `${column.isShowing ? 'text-green-500' : 'text-red-500'}`,
-                'block px-4 py-2'
-              ]">{{ column.isShowing ? 'Visible' : 'Oculto' }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
       <!-- Input de búsqueda -->
-      <div class="">
+      <div>
         <form class="py-2 px-2">
           <label class="sr-only">Búsqueda</label>
           <div class="relative w-full">
-            <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <!-- Icono de búsqueda -->
               <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
               </svg>
             </div>
             <input type="text" v-model="searchQuery" placeholder="Buscar . . ."
@@ -47,110 +19,141 @@
           </div>
         </form>
       </div>
+
+      <!-- Dropdowns y otros botones aquí -->
     </div>
 
-    <!-- Tabla -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg py-2">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th v-if="columns[0].isShowing" class="px-6 py-3">#</th>
-            <th v-if="columns[1].isShowing" class="px-6 py-3">Escuela</th>
-            <th v-if="columns[2].isShowing" class="px-6 py-3">Carrera</th>
-            <th v-if="columns[3].isShowing" class="px-6 py-3">Activa</th>
-            <th v-if="columns[4].isShowing" class="px-6 py-3">Acciones</th>
+            <th class="px-6 py-3">#</th>
+            <th v-for="key in visibleHeaders" :key="key" class="px-6 py-3">{{ key }}</th>
+            <th class="px-6 py-3">Acción</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in filteredData" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td v-if="columns[0].isShowing" class="px-6 py-4">{{ item.no }}</td>
-            <td v-if="columns[1].isShowing" class="px-6 py-4">{{ item.Escuela }}</td>
-            <td v-if="columns[2].isShowing" class="px-6 py-4">{{ item.Carrera }}</td>
-            <td v-if="columns[3].isShowing" class="px-6 py-4">
-              <span :class="item.Activa ? 'inline-block w-4 h-4 bg-green-500 rounded-full' : 'inline-block w-4 h-4 bg-gray-500 rounded-full'"></span>
+          <tr v-for="(user, index) in filteredUsers" :key="user.CAR_ID"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ index + 1 }}</td>
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ getPadreNombre(user.CAR_PADREESC) }}</td>
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ user.CAR_NOMBRE }}</td>
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ user.CAR_ACTIVA }}</td>
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <button @click="handleAlumni(user.CAR_ID)"
+                class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 m-auto dark:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800">
+                Ver
+              </button>
+    
             </td>
-            <td v-if="columns[4].isShowing" class="px-6 py-4 text-center">
-  <button
-    @click="handleViewAction(item.no)"
-    type="button"
-    class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800"
-  >
-    Ver
-  </button>
-</td>
-
           </tr>
         </tbody>
       </table>
     </div>
 
-   
-    
-  </div> 
-  
+    <!-- Botones "Ver" y "Agregar" que se muestran al hacer clic en "Ver" -->
+    <div v-if="showButtons" class="flex space-x-4 mt-4">
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-lg" @click="viewDetails">Ver</button>
+      <button class="bg-green-500 text-white px-4 py-2 rounded-lg">Agregar</button>
+    </div>
+
+    <!-- Formulario de edición que se muestra al hacer clic en "Editar" -->
+    <div v-if="isEditing" class="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-800 text-white">
+      <form>
+        <div class="grid grid-cols-3 gap-4">
+          <div v-for="(field, key) in editForm" :key="key" class="mb-4">
+            <label class="block mb-2">{{ key }}</label>
+            <input v-model="editForm[key]" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" />
+          </div>
+        </div>
+        <button @click.prevent="saveChanges" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Guardar
+        </button>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
+import type { AlumniResposeType } from '../types/alumni';
 
-const props = defineProps<{
-  data: Array<{
-    no: number;
-    Escuela: string;
-    Carrera: string;
-    Activa: boolean;
-    respaldos: string;
-  }>;
-  selectedRow: number | null;
-  showActions: boolean;
-}>();
+const props = defineProps({
+  data: {
+    type: Array as () => AlumniResposeType[],
+    required: true
+  }
+});
 
 const emit = defineEmits<{
-  (e: 'action', payload: { id: number, action: string }): void;
+  (e: 'showDetails', id: number): void;
+  (e: 'editDetails', id: number): void;
 }>();
 
-const searchQuery = ref('');
-const selectedItem = ref<number | null>(null);
 const showButtons = ref(false);
+const selectedUserId = ref<number | null>(null);
+const searchQuery = ref('');
+const isEditing = ref(false);
+const editForm = ref<Record<string, any>>({});
 
-// Definir las columnas y su visibilidad
-const columns = ref([
-  { head: '#', isShowing: true },
-  { head: 'Escuela', isShowing: true },
-  { head: 'Carrera', isShowing: true },
-  { head: 'Activa', isShowing: true },
-  { head: 'Acciones', isShowing: true }
-]);
+// Computada para obtener los encabezados visibles
+const visibleHeaders = computed(() => {
+  return (Object.keys(columnVisibility.value) as Array<keyof typeof columnVisibility.value>)
+    .filter(key => columnVisibility.value[key]);
+});
 
-// Computed property para datos filtrados
-const filteredData = computed(() => {
-  const query = searchQuery.value.toLowerCase();
-  return props.data.filter(item =>
-    item.no.toString().includes(query) ||
-    item.Escuela.toLowerCase().includes(query) ||
-    item.Carrera.toLowerCase().includes(query)
+// Filtra los usuarios según el término de búsqueda y el campo `CAR_CARRERA`
+const filteredUsers = computed(() => {
+  const searchTerm = searchQuery.value.toLowerCase();
+  return props.data.filter(user =>
+    (user.CAR_CARRERA === 1) && (
+      user.CAR_NOMBRE?.toString().toLowerCase().includes(searchTerm) ||
+      user.CAR_CARRERA?.toString().toLowerCase().includes(searchTerm) ||
+      user.CAR_ACTIVA?.toString().toLowerCase().includes(searchTerm)
+    )
   );
 });
 
-const handleViewAction = (id: number) => {
-  selectedItem.value = id;
+// Obtener el nombre del padre basado en el ID
+const getPadreNombre = (padreId: number) => {
+  const padre = props.data.find(padre => padre.CAR_ID === padreId);
+  return padre ? padre.CAR_NOMBRE : 'N/A';
+};
+
+const columnVisibility = ref({
+  CAR_NOMBRE: true,
+  CAR_CARRERA: true,
+  CAR_ACTIVA_ESCUELA: true
+});
+
+// Manejar la acción de "Ver"
+const handleAlumni = (carId: number) => {
+  selectedUserId.value = carId;
   showButtons.value = true;
-  emitAction('view'); // Emite la acción 'view' para mostrar la segunda tabla o realizar cualquier otra acción necesaria
 };
 
-const handleEditAction = (id: number) => {
-  emit('action', { id, action: 'edit' });
-};
-
-const toggleColumnVisibility = (index: number) => {
-  columns.value[index].isShowing = !columns.value[index].isShowing;
-};
-
-const emitAction = (action: string) => {
-  if (selectedItem.value !== null) {
-    emit('action', { id: selectedItem.value, action });
+// Acción para el botón "Ver"
+const viewDetails = () => {
+  if (selectedUserId.value !== null) {
+    emit('showDetails', selectedUserId.value);
   }
+};
+
+// Acción para el botón "Guardar"
+const saveChanges = () => {
+  // Aquí manejar la lógica para guardar los cambios en el backend
+  console.log("Guardar cambios:", editForm.value);
+  isEditing.value = false;
+  selectedUserId.value = null;
+  showButtons.value = false;
 };
 </script>
 
-
+<style scoped>
+.me-2 {
+  margin-right: 0.5rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+</style>
