@@ -54,29 +54,20 @@
     <!-- Botones "Ver" y "Agregar" que se muestran al hacer clic en "Ver" -->
     <div v-if="showButtons" class="flex space-x-4 mt-4">
       <button class="bg-blue-500 text-white px-4 py-2 rounded-lg" @click="viewDetails">Ver</button>
-      <button class="bg-green-500 text-white px-4 py-2 rounded-lg">Agregar</button>
-    </div>
+      <button class="bg-green-500 text-white px-4 py-2 rounded-lg" @click="toggleForm">Agregar</button>
+  </div>
 
-    <!-- Formulario de edición que se muestra al hacer clic en "Editar" -->
-    <div v-if="isEditing" class="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-800 text-white">
-      <form>
-        <div class="grid grid-cols-3 gap-4">
-          <div v-for="(field, key) in editForm" :key="key" class="mb-4">
-            <label class="block mb-2">{{ key }}</label>
-            <input v-model="editForm[key]" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" />
-          </div>
-        </div>
-        <button @click.prevent="saveChanges" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Guardar
-        </button>
-      </form>
-    </div>
+     <!-- Formulario de edición que se muestra al hacer clic en "Agregar" -->
+  <div v-if="isFormVisible" class="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-800 text-white">
+    <FromAlumni />
+  </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { AlumniResposeType } from '../types/alumni';
+import FromAlumni from '../components/fromAlumni.vue'; // Importación correcta
 
 const props = defineProps({
   data: {
@@ -95,6 +86,12 @@ const selectedUserId = ref<number | null>(null);
 const searchQuery = ref('');
 const isEditing = ref(false);
 const editForm = ref<Record<string, any>>({});
+const isFormVisible = ref(false);
+
+// Acción para mostrar/ocultar el formulario al hacer clic en "Agregar"
+const toggleForm = () => {
+  isFormVisible.value = !isFormVisible.value;
+};
 
 // Computada para obtener los encabezados visibles
 const visibleHeaders = computed(() => {
@@ -139,14 +136,6 @@ const viewDetails = () => {
   }
 };
 
-// Acción para el botón "Guardar"
-const saveChanges = () => {
-  // Aquí manejar la lógica para guardar los cambios en el backend
-  console.log("Guardar cambios:", editForm.value);
-  isEditing.value = false;
-  selectedUserId.value = null;
-  showButtons.value = false;
-};
 </script>
 
 <style scoped>
