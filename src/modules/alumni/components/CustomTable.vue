@@ -44,30 +44,35 @@
                 class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 m-auto dark:bg-blue-600 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800">
                 Ver
               </button>
-    
+            
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- Mostrar CAR_NOMBRE seleccionado -->
+    <div v-if="selectedCarNombre" class="mt-4 text-xl font-bold">
+      {{ selectedCarNombre }}
+    </div>
+
     <!-- Botones "Ver" y "Agregar" que se muestran al hacer clic en "Ver" -->
     <div v-if="showButtons" class="flex space-x-4 mt-4">
       <button class="bg-blue-500 text-white px-4 py-2 rounded-lg" @click="viewDetails">Ver</button>
       <button class="bg-green-500 text-white px-4 py-2 rounded-lg" @click="toggleForm">Agregar</button>
-  </div>
+    </div>
 
-     <!-- Formulario de edición que se muestra al hacer clic en "Agregar" -->
-  <div v-if="isFormVisible" class="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-800 text-white">
-    <FromAlumni />
-  </div>
+    <!-- Formulario de edición que se muestra al hacer clic en "Agregar" -->
+    <div v-if="isFormVisible" class="mt-4 p-4 border border-gray-300 rounded-lg bg-gray-800 text-white">
+      <FromAlumni />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { AlumniResposeType } from '../types/alumni';
-import FromAlumni from '../components/fromAlumni.vue'; // Importación correcta
+import FromAlumni from '../components/fromAlumni.vue'; 
 
 const props = defineProps({
   data: {
@@ -84,8 +89,6 @@ const emit = defineEmits<{
 const showButtons = ref(false);
 const selectedUserId = ref<number | null>(null);
 const searchQuery = ref('');
-const isEditing = ref(false);
-const editForm = ref<Record<string, any>>({});
 const isFormVisible = ref(false);
 
 // Acción para mostrar/ocultar el formulario al hacer clic en "Agregar"
@@ -103,10 +106,8 @@ const visibleHeaders = computed(() => {
 const filteredUsers = computed(() => {
   const searchTerm = searchQuery.value.toLowerCase();
   return props.data.filter(user =>
-    (user.CAR_CARRERA === 1) && (
-      user.CAR_NOMBRE?.toString().toLowerCase().includes(searchTerm) ||
-      user.CAR_CARRERA?.toString().toLowerCase().includes(searchTerm) ||
-      user.CAR_ACTIVA?.toString().toLowerCase().includes(searchTerm)
+    visibleHeaders.value.some(header =>
+      user[header]?.toString().toLowerCase().includes(searchTerm)
     )
   );
 });
@@ -123,11 +124,18 @@ const columnVisibility = ref({
   CAR_ACTIVA_ESCUELA: true
 });
 
+// Computada para obtener el nombre del usuario seleccionado
+const selectedCarNombre = computed(() => {
+  const selectedUser = props.data.find(user => user.CAR_ID === selectedUserId.value);
+  return selectedUser ? selectedUser.CAR_NOMBRE : '';
+});
+
 // Manejar la acción de "Ver"
 const handleAlumni = (carId: number) => {
   selectedUserId.value = carId;
   showButtons.value = true;
 };
+
 
 // Acción para el botón "Ver"
 const viewDetails = () => {

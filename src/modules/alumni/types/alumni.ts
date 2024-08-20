@@ -10,3 +10,59 @@ export interface AlumniResposeType {
     ROL_NOBRE:          string;
     ROL_EDITAR:         number;
 }
+// agregarAlumni.ts
+export interface AlumniAgregarType {
+    MAGR_ID: number;
+    MAGR_NUMERO: string;
+    MAGR_CODDIGO_CARRERA: string;
+    MAGR_INSTITUCION: string;
+    MAGR_CARRERA: string;
+    MAGR_LUGAR: string;
+    MAGR_DURACION: string;
+    MAGR_NIVEL: string;
+    MAGR_MODALIDAD: string;
+    MAGR_NUMERO_MATRICULA: string;
+    MAGR_TIPO_IDENTIFICACION: number;
+    MAGR_CEDULA: string;
+    MAGR_NOMBRES: string;
+    MAGR_SEXO: string;
+    MAGR_NACIONALIDAD: string;
+    MAGR_FECHA_INICIO_ESTUDIOS: string;
+    MAGR_FECHA_EGRESAMIENTO: string;
+    MAGR_TITULO_ADMISION: string;
+    MAGR_PROCEDENCIA_TITULO_ADMISION: string;
+    MAGR_FECHA_ACTA_GRADO: string;
+    MAGR_NUMERO_ACTA_GRADO: string;
+    MAGR_DENOMINACION_TITULO: string;
+    MAGR_FECHA_REFRENDACION: string;
+    MAGR_NUMERO_REFRENDACION: string;
+    MAGR_TEMA_DE_TESIS: string;
+    MAGR_NUMERO_CEDULA_ASESORES: string;
+    MAGR_ASESORES: string;
+    MAGR_LECTOR1: string;
+    MAGR_LECTOR2: string;
+    MAGR_DIRECCIONES: string;
+    MAGR_TELEFONO: string;
+    MAGR_MAIL: string;
+    MAGR_ETNIA: string;
+    MAGR_PAIS_NACIONALIDAD: string;
+    MAGR_PAIS_RESIDENCIA: string;
+    MAGR_PROVINCIA_RECIDENCIA: string;
+    MAGR_CANTON_RESIDENCIA: string;
+    MAGR_TIPO_DE_COLEGIO: string;
+    MAGR_ESTUDIOS_PREVIOS: string;
+    MAGR_UNIVERSIDAD_ESTUDIOS_PREVIOS: string;
+    MAGR_CARRERA_ESTUDIOS_PREVIOS: string;
+    MAGR_TIEMPO_ESTUDIOS_RECONOCIMIENTO: string;
+    MAGR_TIPO_RECONOCIMIENTO: string;
+    MAGR_MECANISMO_TITULACION: string;
+    MAGR_NOTA_PROMEDIO_ACUMULADO: string;
+    MAGR_NOTA_TRABAJO_TITULACION: string;
+    MAGR_NOTA_FINAL: string;
+    MAGR_RESPALDOS: string;
+    MAGR_EXPEDIENTE: string;
+    MAGR_OBSERVACION: string;
+    CAR_ID: number;
+    MAGR_ANALISIS: number;
+  }
+  

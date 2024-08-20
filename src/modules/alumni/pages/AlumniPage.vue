@@ -25,13 +25,12 @@
   import { ref } from 'vue';
   import DashboardLayout from '@/modules/dashboard/layouts/DashboardLayout.vue';
   import CustomTable from '../components/CustomTable.vue';
-  import router from '@/router';
+ 
   
   const showModal = ref(false);
   const showInformeModal = ref(false);
   const showDefensaModal = ref(false);
   const selectedRowData = ref(null);
-  const showSecondTable = ref(false); // Nueva variable de estado
   
   // Obtener el id del login
   import { useGetAlumni } from '../composables/useAlumni';
@@ -40,11 +39,7 @@
   const usuId = userStore.usuId;
   const query = useGetAlumni(usuId);
   const { data, error, isLoading } = useGetAlumni(usuId);
-  
-  // Abrir y cerrar modales
-  const openModal = () => {
-    showModal.value = true;
-  };
+ 
   
   const closeModal = () => {
     showModal.value = false;
@@ -102,18 +97,9 @@
   };
   
   const savedPDFs = ref<{ [key: string]: string }>({});
-  const viewPDF = (pdfContent: string) => {
-    const win = window.open("", "_blank");
-    if (win) {
-      win.document.write('<iframe src="' + pdfContent + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
-    }
-  };
-  
-  const navigateToPage = (row: any) => {
-    const id = row.numero || row.cedula;
-    router.push(`/titulacion-detalle-ver/${id}`);
-  };
-  
+
+ 
+
   </script>
   
   <style scoped></style>
